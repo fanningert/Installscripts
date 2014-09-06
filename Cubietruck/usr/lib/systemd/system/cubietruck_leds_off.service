@@ -1,0 +1,6 @@
+[Unit]
+Description=Disable the LEDs of Cubietruck
+[Service]
+ExecStart=/usr/bin/cubietruck_leds_off.sh
+[Install]
+WantedBy=multi-user.target
