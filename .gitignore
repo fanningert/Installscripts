@@ -1,0 +1,5 @@
+*._*
+.DS_Store
+**/ArchLinuxARM-sun7i-latest.tar.gz
+**/*.pkg.tar.gz
+**/*.pkg.tar.xz
