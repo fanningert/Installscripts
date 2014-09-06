@@ -1,0 +1,32 @@
+#!/bin/sh
+
+MAC_OPTIONS=""
+if [ -z "$MAC_ADDR" ]; then
+   echo "MAC_ADDR in /etc/conf.d/bcm40183 not set, will use MAC set by device (expect this to be buggy)"
+else
+   MAC_OPTIONS="--bd_addr $MAC_ADDR"
+fi
+
+# Selection for CubieTruck (CubieBoard 3)
+if [ -n "$(cat /sys/class/rfkill/*/name | grep bcm40183)" ]; then 
+  PORT=$(ls /sys/devices/platform/sunxi-uart.2/tty/)
+  echo -en "" > /dev/$PORT      # pull down RTS on UART
+  HCD="ap6210/bcm20710a1.hcd"
+  EXTRA="--no2bytes --tosleep=1000"
+  /usr/bin/brcm_patchram_plus --patchram /usr/lib/firmware/$HCD --enable_hci $EXTRA $MAC_OPTIONS /dev/$PORT &
+else
+  echo " No device Found."
+  exit 1
+fi
+
+for i in 1 2 3 4 5 ; do
+  b=$(hciconfig | grep UART | cut -d: -f1)
+  if [ -n "$b" ] ; then
+    hciconfig $b up 
+    break
+  else 
+    sleep $i
+  fi
+done
+
+exit 0
