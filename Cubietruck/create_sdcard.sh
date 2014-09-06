@@ -189,6 +189,7 @@ echo -e "#########################################################"$COL_RESET
 # copy initial files
   echo -e $COL_RED"copying configuration files to $PART1..."$COL_RESET
   cp -R etc "$MOUNTPOINT"
+  cp -R usr "$MOUNTPOINT"
 
 # unmount partition
   echo -e $COL_RED"unmounting partition $MOUNTPOINT..."$COL_RESET
