@@ -190,6 +190,10 @@ echo -e "#########################################################"$COL_RESET
   echo -e $COL_RED"copying configuration files to $PART1..."$COL_RESET
   cp -R etc "$MOUNTPOINT"
   cp -R usr "$MOUNTPOINT"
+  cp -R root "$MOUNTPOINT"
+
+# make some changes
+  sed -i 's/#IgnorePkg   =/IgnorePkg = uboot-cubieboard2/g' "$MOUNTPOINT"/etc/pacman.conf
 
 # unmount partition
   echo -e $COL_RED"unmounting partition $MOUNTPOINT..."$COL_RESET
