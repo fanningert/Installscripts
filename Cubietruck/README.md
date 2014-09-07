@@ -7,6 +7,10 @@
 
 After the first start, a dynamic created mac adress is set for the network interface. You can change it in the file `/etc/modprobe.d/sunxi.conf`
 
+## Change the network configuration for eth0
+
+You can change the network setting for eth0 over the file `/etc/systemd/network/eth0.network`
+
 ## Disable LEDs
 
 ```bash
@@ -15,6 +19,10 @@ systemctl start cubietruck_leds_off.service
 ```
 
 ## Changelog
+
+2014-08-07
+* Add: Workaround for the current problem with dhcp and systemd-networkd (static network config)
+* Fix: Now the initscript is run on the login of the root user
 
 2014-08-06
 
